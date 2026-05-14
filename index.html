@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadiriri - Sistema de Orçamentos</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <section id="menuInicial">
+      <div class="topo">
+     <img src="assets/logo.png" class="logo" />
+
+     <div>
+    <h1>Sistema de Orçamentos</h1>
+    <p>CADIRIRI HIDRÁULICA E PNEUMÁTICA LTDA</p>
+    </div>
+</div>
+
+      <div class="menu-buttons">
+        <button onclick="abrirFormulario('proposta')">Proposta comercial</button>
+        <button onclick="abrirFormulario('manutencao')">Orçamento de manutenção</button>
+      </div>
+    </section>
+
+    <section id="formulario" class="oculto">
+      <button class="btn-voltar" onclick="voltarMenu()">Voltar</button>
+
+      <h1 id="tituloFormulario">Proposta comercial</h1>
+
+      <h2>Dados do cliente</h2>
+
+      <div class="grid">
+        <div>
+          <label>CNPJ</label>
+          <input type="text" id="cnpj" placeholder="Digite o CNPJ" />
+        </div>
+
+        <div>
+          <label>Nome da empresa</label>
+          <input type="text" id="empresa" />
+        </div>
+
+
+         <div>
+          <label>Nome do cliente</label>
+          <input type="text" id="nomeCliente" placeholder="Ex: Ana Carolina" />
+        </div>
+
+
+        <div>
+          <label>Endereço</label>
+          <input type="text" id="endereco" />
+        </div>
+
+        <div>
+          <label>Telefone</label>
+          <input type="text" id="telefone" />
+        </div>
+
+        <div>
+          <label>Vendedor responsável</label>
+          <select id="vendedor">
+            <option value="">Selecione</option>
+            <option value="Joathan">Joathan</option>
+            <option value="Fabiana Silllva">Fabiana Silllva</option>
+            <option value="Henrique">Henrique</option>
+          </select>
+        </div>
+      </div>
+
+      <h2 id="tituloProdutos">Produtos</h2>
+
+      <div id="produtos"></div>
+
+      <button onclick="adicionarProduto()">Adicionar produto</button>
+      <button onclick="removerProduto()">Remover último</button>
+
+      <h2>Retirada / Envio e pagamento</h2>
+
+
+      <div class="grid">
+        <div>
+          <label>Tipo de retirada/envio</label>
+          <select id="retirada">
+            <option>Transportadora</option>
+            <option>Retirada em Loja</option>
+            <option>SEDEX</option>
+            <option>Motoboy</option>
+          </select>
+        </div>
+
+      <div>
+        <label>Forma de pagamento</label>
+
+        <select id="pagamento" onchange="mostrarCampoFaturado()">
+        <option>Faturado</option>
+        <option>Pix</option>
+        <option>Cartão de crédito</option>
+        <option>Débito</option>
+        <option>Dinheiro</option>
+        <option>Sob-encomenda</option>
+     </select>
+    </div>
+
+<div id="campoFaturado">
+  <label>Condição faturada</label>
+  <input type="text" id="dias" placeholder="Ex: 30 DDL ou 30/45/60 DDL" />
+</div>
+
+
+  <div id="campoParcelas" class="oculto">
+  <label>Parcelas no cartão</label>
+
+  <select id="parcelasCartao">
+    <option value="1x sem juros">1x sem juros</option>
+    <option value="2x sem juros">2x sem juros</option>
+    <option value="3x sem juros">3x sem juros</option>
+  </select>
+</div>
+
+
+        <div>
+          <label>Frete (R$)</label>
+          <input type="number" id="frete" value="0" />
+        </div>
+
+        <div>
+        <label>Validade da proposta</label>
+         <input type="text" id="validade" value="20 dias" />
+        </div>
+
+
+      </div>
+
+      <h2>Dados para SEDEX</h2>
+
+      <div class="grid">
+        <div>
+          <label>CEP do cliente</label>
+          <input type="text" id="cepCliente" placeholder="00000-000" />
+        </div>
+
+        <div>
+          <label>Peso da caixa (kg)</label>
+          <input type="number" id="peso" placeholder="Ex: 2" />
+        </div>
+
+      
+      <label>Observações adicionais</label>
+      <textarea id="observacoes"></textarea>
+
+      <br />
+
+      <button onclick="gerarPDF()">Gerar PDF</button>
+      <button onclick="gerarWord()">Exportar Word</button>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
