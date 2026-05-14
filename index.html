@@ -28,6 +28,8 @@
       <div class="menu-buttons">
         <button onclick="abrirFormulario('proposta')">Proposta comercial</button>
         <button onclick="abrirFormulario('manutencao')">Orçamento de manutenção</button>
+        <button onclick="abrirHistorico()">Consultar orçamentos</button>
+        
       </div>
     </section>
 
@@ -163,9 +165,33 @@
       <button onclick="gerarPDF()">Gerar PDF</button>
       <button onclick="gerarWord()">Exportar Word</button>
     </section>
+    
+    <section id="historico" class="oculto">
 
+      <button class="btn-voltar" onclick="voltarMenu()">Voltar</button>
+
+  <h1>Histórico de orçamentos</h1>
+
+  <div class="grid">
+    <div>
+      <label>Pesquisar</label>
+
+      <input
+        type="text"
+        id="pesquisaHistorico"
+        placeholder="Data, cliente, CNPJ ou nº do orçamento"
+        oninput="listarHistorico()"
+      />
+    </div>
   </div>
 
+  <div id="listaHistorico"></div>
+
+</section>
+
+  </div>
+  
+  
   <script src="script.js"></script>
 </body>
 </html>
