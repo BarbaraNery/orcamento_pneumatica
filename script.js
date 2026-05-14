@@ -588,3 +588,116 @@ function mostrarPrazoProduto(select) {
     produtoItem.querySelector(".prazoProduto").value = "";
   }
 }
+function abrirHistorico() {
+  document.getElementById("menuInicial").classList.add("oculto");
+  document.getElementById("formulario").classList.add("oculto");
+  document.getElementById("historico").classList.remove("oculto");
+
+  listarHistorico();
+}
+
+function salvarOrcamento() {
+  const empresa = document.getElementById("empresa").value;
+  const nomeCliente = document.getElementById("nomeCliente").value;
+  const cnpj = document.getElementById("cnpj").value;
+  const vendedor = document.getElementById("vendedor").value;
+  const pagamento = document.getElementById("pagamento").value;
+  const retirada = document.getElementById("retirada").value;
+  const frete = Number(document.getElementById("frete").value || 0);
+
+  const validade = document.getElementById("validade")?.value || "";
+  const observacoes = document.getElementById("observacoes")?.value || "";
+
+  const numeroOrcamento = gerarNumeroOrcamento();
+  const data = new Date().toLocaleDateString("pt-BR");
+
+  const produtos = [];
+  let subtotal = 0;
+
+  document.querySelectorAll(".produto-item").forEach((item) => {
+    const produto = item.querySelector(".produto").value;
+    const codigo = item.querySelector(".codigo").value;
+    const quantidade = Number(item.querySelector(".quantidade").value || 0);
+    const preco = Number(item.querySelector(".preco").value || 0);
+    const disponibilidade = item.querySelector(".disponibilidade")?.value || "";
+    const prazoProduto = item.querySelector(".prazoProduto")?.value || "";
+
+    const total = quantidade * preco;
+    subtotal += total;
+
+    produtos.push({
+      produto,
+      codigo,
+      quantidade,
+      preco,
+      total,
+      disponibilidade,
+      prazoProduto
+    });
+  });
+
+  const totalGeral = subtotal + frete;
+
+  const orcamento = {
+    numero: numeroOrcamento,
+    data,
+    tipo: tipoOrcamento === "proposta" ? "Proposta comercial" : "Orçamento de manutenção",
+    empresa,
+    nomeCliente,
+    cnpj,
+    vendedor,
+    pagamento,
+    retirada,
+    frete,
+    subtotal,
+    totalGeral,
+    validade,
+    observacoes,
+    produtos
+  };
+
+  const historico = JSON.parse(localStorage.getItem("historicoOrcamentosCadiriri")) || [];
+
+  historico.push(orcamento);
+
+  localStorage.setItem("historicoOrcamentosCadiriri", JSON.stringify(historico));
+
+  alert(`Orçamento ${numeroOrcamento} salvo com sucesso!`);
+}
+
+function listarHistorico() {
+  const lista = document.getElementById("listaHistorico");
+  const pesquisa = document.getElementById("pesquisaHistorico")?.value.toLowerCase() || "";
+
+  const historico = JSON.parse(localStorage.getItem("historicoOrcamentosCadiriri")) || [];
+
+  const filtrados = historico.filter((orcamento) => {
+    return (
+      orcamento.numero.toLowerCase().includes(pesquisa) ||
+      orcamento.data.toLowerCase().includes(pesquisa) ||
+      orcamento.empresa.toLowerCase().includes(pesquisa) ||
+      orcamento.nomeCliente.toLowerCase().includes(pesquisa) ||
+      orcamento.cnpj.toLowerCase().includes(pesquisa)
+    );
+  });
+
+  if (filtrados.length === 0) {
+    lista.innerHTML = "<p>Nenhum orçamento encontrado.</p>";
+    return;
+  }
+
+  lista.innerHTML = filtrados
+    .map((orcamento) => `
+      <div class="card-historico">
+        <h3>${orcamento.numero}</h3>
+        <p><strong>Data:</strong> ${orcamento.data}</p>
+        <p><strong>Tipo:</strong> ${orcamento.tipo}</p>
+        <p><strong>Empresa:</strong> ${orcamento.empresa}</p>
+        <p><strong>Cliente:</strong> ${orcamento.nomeCliente || "-"}</p>
+        <p><strong>CNPJ:</strong> ${orcamento.cnpj}</p>
+        <p><strong>Vendedor:</strong> ${orcamento.vendedor}</p>
+        <p><strong>Total:</strong> ${formatarMoeda(orcamento.totalGeral)}</p>
+      </div>
+    `)
+    .join("");
+}
