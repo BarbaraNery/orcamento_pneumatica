@@ -742,3 +742,85 @@ function gerarPDFHistorico(numero) {
   gerarPDFComDados(orcamento);
 }
 
+function gerarPDFDoHistorico(numero) {
+
+  const historico = JSON.parse(
+    localStorage.getItem("historicoOrcamentosCadiriri")
+  ) || [];
+
+  const orcamento = historico.find(
+    item => item.numero === numero
+  );
+
+  if (!orcamento) {
+    alert("Orçamento não encontrado.");
+    return;
+  }
+
+  document.getElementById("empresa").value = orcamento.empresa || "";
+  document.getElementById("nomeCliente").value = orcamento.nomeCliente || "";
+  document.getElementById("cnpj").value = orcamento.cnpj || "";
+  document.getElementById("vendedor").value = orcamento.vendedor || "";
+  document.getElementById("retirada").value = orcamento.retirada || "";
+  document.getElementById("pagamento").value = orcamento.pagamento || "";
+  document.getElementById("frete").value = orcamento.frete || 0;
+  document.getElementById("observacoes").value = orcamento.observacoes || "";
+  document.getElementById("validade").value = orcamento.validade || "";
+
+  if (document.getElementById("dias")) {
+    document.getElementById("dias").value = orcamento.dias || "";
+  }
+
+  if (
+    document.getElementById("parcelasCartao") &&
+    orcamento.parcelasCartao
+  ) {
+    document.getElementById("parcelasCartao").value =
+      orcamento.parcelasCartao;
+  }
+
+  mostrarCampoFaturado();
+
+  const areaProdutos = document.getElementById("produtos");
+  areaProdutos.innerHTML = "";
+
+  orcamento.produtos.forEach(produto => {
+
+    adicionarProduto();
+
+    const ultimoProduto =
+      areaProdutos.lastElementChild;
+
+    ultimoProduto.querySelector(".produto").value =
+      produto.produto || "";
+
+    ultimoProduto.querySelector(".codigo").value =
+      produto.codigo || "";
+
+    ultimoProduto.querySelector(".quantidade").value =
+      produto.quantidade || 1;
+
+    ultimoProduto.querySelector(".preco").value =
+      produto.preco || 0;
+
+    if (ultimoProduto.querySelector(".disponibilidade")) {
+
+      ultimoProduto.querySelector(".disponibilidade").value =
+        produto.disponibilidade || "Em estoque";
+
+      mostrarPrazoProduto(
+        ultimoProduto.querySelector(".disponibilidade")
+      );
+    }
+
+    if (
+      ultimoProduto.querySelector(".prazoProduto")
+    ) {
+      ultimoProduto.querySelector(".prazoProduto").value =
+        produto.prazoProduto || "";
+    }
+  });
+
+  gerarPDF();
+}
+
