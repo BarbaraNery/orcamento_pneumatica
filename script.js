@@ -821,7 +821,7 @@ function gerarPDFDoHistorico(numero) {
 }
 
 function imprimirOrcamento() {
-  window.print();
+  gerarPDF();
 }
 
 
