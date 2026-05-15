@@ -118,3 +118,24 @@ button:hover {
 .card-historico h3 {
   margin-top: 0;
 }
+
+@media print {
+  button {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  #menuInicial {
+    display: none;
+  }
+}
