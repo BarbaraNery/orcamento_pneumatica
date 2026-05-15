@@ -714,6 +714,9 @@ function listarHistorico() {
         <p><strong>CNPJ:</strong> ${orcamento.cnpj}</p>
         <p><strong>Vendedor:</strong> ${orcamento.vendedor}</p>
         <p><strong>Total:</strong> ${formatarMoeda(orcamento.totalGeral)}</p>
+        <button onclick="gerarPDFDoHistorico('${orcamento.numero}')">
+        Gerar PDF novamente
+        </button>
       <button onclick="gerarPDFHistorico('${orcamento.numero}')">
       Gerar PDF novamente
       </button>
