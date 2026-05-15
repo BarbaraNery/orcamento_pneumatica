@@ -183,6 +183,48 @@ function gerarPDF() {
   doc.setFontSize(16);
   doc.text(tituloPDF, 105, 65, { align: "center" });
 
+  doc.text(tituloPDF, 105, 65, { align: "center" });
+
+let yCliente = 80;
+
+doc.setFont("helvetica", "bold");
+doc.setFontSize(10);
+
+const empresaQuebrada = doc.splitTextToSize(`Empresa: ${empresa}`, 90);
+doc.text(empresaQuebrada, 14, yCliente);
+yCliente += empresaQuebrada.length * 6;
+
+doc.text(`CNPJ: ${cnpj}`, 14, yCliente);
+yCliente += 6;
+
+const clienteQuebrado = doc.splitTextToSize(`Cliente: ${nomeCliente || "-"}`, 90);
+doc.text(clienteQuebrado, 14, yCliente);
+yCliente += clienteQuebrado.length * 6;
+
+const enderecoQuebrado = doc.splitTextToSize(`Endereço: ${endereco}`, 90);
+doc.text(enderecoQuebrado, 14, yCliente);
+yCliente += enderecoQuebrado.length * 6;
+
+doc.text(`Telefone: ${telefone || "-"}`, 14, yCliente);
+yCliente += 6;
+
+doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
+doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
+
+let textoPagamento = "";
+
+if (pagamento === "Faturado") {
+  textoPagamento = `Pagamento: Faturado ${dias}`;
+} else if (pagamento === "Cartão de crédito") {
+  textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
+} else {
+  textoPagamento = `Pagamento: ${pagamento}`;
+}
+
+doc.text(textoPagamento, 125, 96, { maxWidth: 65 });
+
+const inicioTabela = Math.max(yCliente + 15, 112);
+
   doc.setFont("helvetica", "bold");
 doc.setFontSize(10);
 
