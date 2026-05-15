@@ -824,24 +824,4 @@ function imprimirOrcamento() {
   window.print();
 }
 
-@media print {
-  button {
-    display: none;
-  }
-
-  body {
-    background: #fff;
-    padding: 0;
-  }
-
-  .container {
-    box-shadow: none;
-    margin: 0;
-    max-width: 100%;
-  }
-
-  #menuInicial {
-    display: none;
-  }
-}
 
