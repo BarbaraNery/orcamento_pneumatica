@@ -716,11 +716,7 @@ function listarHistorico() {
         <p><strong>Total:</strong> ${formatarMoeda(orcamento.totalGeral)}</p>
         <button onclick="gerarPDFDoHistorico('${orcamento.numero}')">
         Gerar PDF novamente
-        </button>
-      <button onclick="gerarPDFHistorico('${orcamento.numero}')">
-      Gerar PDF novamente
-      </button>
-        
+        </button>       
       </div>
     `)
     .join("");
