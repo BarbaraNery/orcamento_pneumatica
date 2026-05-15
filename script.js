@@ -739,7 +739,28 @@ function listarHistorico() {
         <p><strong>CNPJ:</strong> ${orcamento.cnpj}</p>
         <p><strong>Vendedor:</strong> ${orcamento.vendedor}</p>
         <p><strong>Total:</strong> ${formatarMoeda(orcamento.totalGeral)}</p>
+      <button onclick="gerarPDFHistorico('${orcamento.numero}')">
+      Gerar PDF novamente
+      </button>
+        
       </div>
     `)
     .join("");
 }
+function gerarPDFHistorico(numero) {
+  const historico = JSON.parse(
+    localStorage.getItem("historicoOrcamentosCadiriri")
+  ) || [];
+
+  const orcamento = historico.find(
+    item => item.numero === numero
+  );
+
+  if (!orcamento) {
+    alert("Orçamento não encontrado.");
+    return;
+  }
+
+  gerarPDFComDados(orcamento);
+}
+
