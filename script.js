@@ -132,7 +132,7 @@ function gerarPDF() {
   const doc = new jsPDF();
 
   const logo = new Image();
-    logo.src = "assets/logo.png";
+  logo.src = "assets/logo.png";
 
   const empresa = document.getElementById("empresa").value;
   const nomeCliente = document.getElementById("nomeCliente").value;
@@ -144,12 +144,10 @@ function gerarPDF() {
   const pagamento = document.getElementById("pagamento").value;
   const parcelasCartao = document.getElementById("parcelasCartao")?.value || "";
   const dias = document.getElementById("dias").value;
-  const freteManual = Number(document.getElementById("frete").value || 0);
+  const frete = Number(document.getElementById("frete").value || 0);
   const observacoes = document.getElementById("observacoes").value;
   const validade = document.getElementById("validade").value;
   const numeroOrcamento = gerarNumeroOrcamento();
-
-  const frete = freteManual;
 
   if (!empresa || !vendedor) {
     alert("Preencha o nome da empresa e selecione o vendedor.");
@@ -183,78 +181,45 @@ function gerarPDF() {
   doc.setFontSize(16);
   doc.text(tituloPDF, 105, 65, { align: "center" });
 
-  doc.text(tituloPDF, 105, 65, { align: "center" });
-
-let yCliente = 80;
-
-doc.setFont("helvetica", "bold");
-doc.setFontSize(10);
-
-const empresaQuebrada = doc.splitTextToSize(`Empresa: ${empresa}`, 90);
-doc.text(empresaQuebrada, 14, yCliente);
-yCliente += empresaQuebrada.length * 6;
-
-doc.text(`CNPJ: ${cnpj}`, 14, yCliente);
-yCliente += 6;
-
-const clienteQuebrado = doc.splitTextToSize(`Cliente: ${nomeCliente || "-"}`, 90);
-doc.text(clienteQuebrado, 14, yCliente);
-yCliente += clienteQuebrado.length * 6;
-
-const enderecoQuebrado = doc.splitTextToSize(`Endereço: ${endereco}`, 90);
-doc.text(enderecoQuebrado, 14, yCliente);
-yCliente += enderecoQuebrado.length * 6;
-
-doc.text(`Telefone: ${telefone || "-"}`, 14, yCliente);
-yCliente += 6;
-
-doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
-doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
-
-let textoPagamento = "";
-
-if (pagamento === "Faturado") {
-  textoPagamento = `Pagamento: Faturado ${dias}`;
-} else if (pagamento === "Cartão de crédito") {
-  textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
-} else {
-  textoPagamento = `Pagamento: ${pagamento}`;
-}
-
-doc.text(textoPagamento, 125, 96, { maxWidth: 65 });
-
-const inicioTabela = Math.max(yCliente + 15, 112);
+  let yCliente = 80;
 
   doc.setFont("helvetica", "bold");
-doc.setFontSize(10);
+  doc.setFontSize(10);
 
-doc.text(`Empresa: ${empresa}`, 14, 80, { maxWidth: 90 });
-doc.text(`Cliente/Contato: ${nomeCliente}`, 14, 88, { maxWidth: 90 });
-doc.text(`CNPJ: ${cnpj}`, 14, 88, { maxWidth: 90 });
+  const empresaQuebrada = doc.splitTextToSize(`Empresa: ${empresa}`, 90);
+  doc.text(empresaQuebrada, 14, yCliente);
+  yCliente += empresaQuebrada.length * 6;
 
-const enderecoQuebrado = doc.splitTextToSize(`Endereço: ${endereco}`, 90);
-doc.text(enderecoQuebrado, 14, 96);
+  doc.text(`CNPJ: ${cnpj}`, 14, yCliente);
+  yCliente += 6;
 
-let yDepoisEndereco = 96 + (enderecoQuebrado.length * 6);
+  const clienteQuebrado = doc.splitTextToSize(`Cliente: ${nomeCliente || "-"}`, 90);
+  doc.text(clienteQuebrado, 14, yCliente);
+  yCliente += clienteQuebrado.length * 6;
 
-doc.text(`Telefone: ${telefone}`, 14, yDepoisEndereco);
+  const enderecoQuebrado = doc.splitTextToSize(`Endereço: ${endereco}`, 90);
+  doc.text(enderecoQuebrado, 14, yCliente);
+  yCliente += enderecoQuebrado.length * 6;
 
-doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
-doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
+  doc.text(`Telefone: ${telefone || "-"}`, 14, yCliente);
+  yCliente += 6;
 
-let textoPagamento = "";
+  doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
+  doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
 
-if (pagamento === "Faturado") {
-  textoPagamento = `Pagamento: Faturado ${dias}`;
-} else if (pagamento === "Cartão de crédito") {
-  textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
-} else {
-  textoPagamento = `Pagamento: ${pagamento}`;
-}
+  let textoPagamento = "";
 
-doc.text(textoPagamento, 125, 96, { maxWidth: 65 });
+  if (pagamento === "Faturado") {
+    textoPagamento = `Pagamento: Faturado ${dias}`;
+  } else if (pagamento === "Cartão de crédito") {
+    textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
+  } else {
+    textoPagamento = `Pagamento: ${pagamento}`;
+  }
 
-const inicioTabela = Math.max(yDepoisEndereco + 15, 112);
+  doc.text(textoPagamento, 125, 96, { maxWidth: 65 });
+
+  const inicioTabela = Math.max(yCliente + 15, 112);
 
   const produtos = document.querySelectorAll(".produto-item");
 
@@ -266,22 +231,31 @@ const inicioTabela = Math.max(yDepoisEndereco + 15, 112);
     const codigo = item.querySelector(".codigo").value;
     const quantidade = Number(item.querySelector(".quantidade").value || 0);
     const preco = Number(item.querySelector(".preco").value || 0);
-    const total = quantidade * preco;
+    const disponibilidade = item.querySelector(".disponibilidade")?.value || "";
+    const prazoProduto = item.querySelector(".prazoProduto")?.value || "";
 
+    const total = quantidade * preco;
     subtotal += total;
+
+    let prazoFinal = disponibilidade;
+
+    if (disponibilidade === "Sob encomenda" && prazoProduto) {
+      prazoFinal = `Sob encomenda - ${prazoProduto}`;
+    }
 
     linhas.push([
       produto,
       codigo,
       quantidade,
       formatarMoeda(preco),
-      formatarMoeda(total)
+      formatarMoeda(total),
+      prazoFinal
     ]);
   });
 
   doc.autoTable({
     startY: inicioTabela,
-    head: [["Produto/Serviço", "Código", "Quantidade", "Preço unitário", "Total"]],
+    head: [["Produto/Serviço", "Código", "Qtd", "Preço unit.", "Total", "Disponibilidade"]],
     body: linhas,
     theme: "grid",
     headStyles: {
@@ -290,7 +264,7 @@ const inicioTabela = Math.max(yDepoisEndereco + 15, 112);
       fontStyle: "bold"
     },
     styles: {
-      fontSize: 9
+      fontSize: 8
     }
   });
 
@@ -307,11 +281,12 @@ const inicioTabela = Math.max(yDepoisEndereco + 15, 112);
   doc.text("Observações:", 14, y);
   doc.setFont("helvetica", "normal");
   doc.text(
-  observacoes || `Orçamento válido por ${validade}. Consulte disponibilidade após esse prazo.`,
-  14,
-  y + 8,
-  { maxWidth: 180 }
-);
+    observacoes || `Orçamento válido por ${validade}. Consulte disponibilidade após esse prazo.`,
+    14,
+    y + 8,
+    { maxWidth: 180 }
+  );
+
   doc.line(14, 270, 90, 270);
   doc.line(120, 270, 195, 270);
 
