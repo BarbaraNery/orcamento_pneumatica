@@ -177,6 +177,11 @@ async function buscarCNPJ() {
 
 function gerarPDF() {
 
+    if (tipoOrcamento !== "proposta") {
+    gerarPDFManutencao();
+    return;
+    }
+
     if (tipoOrcamento === "manutencao") {
     gerarPDFManutencao();
     return;
