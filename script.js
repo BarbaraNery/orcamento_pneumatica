@@ -25,7 +25,6 @@ function gerarNumeroOrcamento() {
 
 window.onload = function () {
   adicionarProduto();
-  document.getElementById("cnpj").addEventListener("blur", buscarCNPJ);
   mostrarCampoFaturado();
 };
 
