@@ -853,6 +853,9 @@ function gerarPDFDoHistorico(numero) {
     ultimoProduto.querySelector(".produto").value =
       produto.produto || "";
 
+    ultimoProduto.querySelector(".marca").value =
+      produto.marca || "";
+
     ultimoProduto.querySelector(".codigo").value =
       produto.codigo || "";
 
