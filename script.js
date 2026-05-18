@@ -28,7 +28,6 @@ window.onload = function () {
   mostrarCampoFaturado();
 };
 
-
 function abrirFormulario(tipo) {
   tipoOrcamento = tipo;
 
@@ -58,6 +57,7 @@ function abrirFormulario(tipo) {
   }
 }
 
+window.abrirFormulario = abrirFormulario;
 
 window.abrirFormulario = abrirFormulario;
 
