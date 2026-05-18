@@ -157,6 +157,13 @@ async function buscarCNPJ() {
 }
 
 function gerarPDF() {
+
+    if (tipoOrcamento === "manutencao") {
+    gerarPDFManutencao();
+    return;
+  }
+  
+  
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
@@ -893,6 +900,109 @@ function gerarPDFDoHistorico(numero) {
 
 function imprimirOrcamento() {
   gerarPDF();
+}
+
+function gerarPDFManutencao() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const logo = new Image();
+  logo.src = "assets/logo.png";
+
+  const empresa = document.getElementById("empresa").value;
+  const nomeCliente = document.getElementById("nomeCliente").value;
+  const cnpj = document.getElementById("cnpj").value;
+  const endereco = document.getElementById("endereco").value;
+  const telefone = document.getElementById("telefone").value;
+  const vendedor = document.getElementById("vendedor").value;
+
+  const tipoEquipamento = document.getElementById("tipoEquipamento").value;
+  const marca = document.getElementById("marcaManutencao").value;
+  const modelo = document.getElementById("modeloManutencao").value;
+  const valor = document.getElementById("valorManutencao").value || "A definir";
+  const problema = document.getElementById("problemaManutencao").value;
+  const observacoes = document.getElementById("observacoesManutencao").value;
+
+  const numeroOrcamento = gerarNumeroOrcamento();
+  const hoje = new Date().toLocaleDateString("pt-BR");
+
+  doc.rect(8, 8, 194, 280);
+  doc.addImage(logo, "PNG", 14, 12, 35, 20);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text(cadiriri.nome, 55, 20);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(cadiriri.telefone, 55, 26);
+  doc.text(cadiriri.endereco, 55, 32);
+  doc.text(cadiriri.cidade, 55, 38);
+  doc.text(`CNPJ: ${cadiriri.cnpj} — IE: ${cadiriri.ie}`, 55, 44);
+
+  doc.text(`Nº: ${numeroOrcamento}`, 155, 20);
+  doc.text(`Data: ${hoje}`, 155, 26);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("ORÇAMENTO DE MANUTENÇÃO", 105, 62, { align: "center" });
+
+  doc.setFontSize(10);
+  let y = 78;
+
+  doc.text(`Empresa: ${empresa || "-"}`, 14, y); y += 7;
+  doc.text(`Cliente: ${nomeCliente || "-"}`, 14, y); y += 7;
+  doc.text(`CPF/CNPJ: ${cnpj || "-"}`, 14, y); y += 7;
+  doc.text(`Endereço: ${endereco || "-"}`, 14, y); y += 7;
+  doc.text(`Telefone: ${telefone || "-"}`, 14, y); y += 10;
+
+  doc.text("Dados do equipamento", 14, y); y += 7;
+  doc.setFont("helvetica", "normal");
+  doc.text(`Tipo: ${tipoEquipamento}`, 14, y); y += 7;
+  doc.text(`Marca: ${marca || "-"}`, 14, y); y += 7;
+  doc.text(`Modelo/Código: ${modelo || "-"}`, 14, y); y += 7;
+  doc.text(`Valor: ${valor}`, 14, y); y += 10;
+
+  doc.setFont("helvetica", "bold");
+  doc.text("O que está acontecendo:", 14, y); y += 7;
+  doc.setFont("helvetica", "normal");
+  doc.text(doc.splitTextToSize(problema || "-", 180), 14, y);
+  y += 25;
+
+  doc.setFont("helvetica", "bold");
+  doc.text("Observações técnicas:", 14, y); y += 7;
+  doc.setFont("helvetica", "normal");
+  doc.text(doc.splitTextToSize(observacoes || "-", 180), 14, y);
+  y += 35;
+
+  doc.setFont("helvetica", "bold");
+  doc.text(`Responsável: ${vendedor || "-"}`, 14, y);
+
+  criarCanhotoManutencao(doc, 185, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 235, numeroOrcamento, hoje, empresa, tipoEquipamento);
+
+  doc.save(`manutencao-${empresa || "cliente"}.pdf`);
+}
+
+function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento) {
+  doc.setDrawColor(0);
+  doc.line(14, y - 8, 195, y - 8);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("CANHOTO DE MANUTENÇÃO", 14, y);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Nº: ${numero}`, 14, y + 7);
+  doc.text(`Data: ${data}`, 80, y + 7);
+  doc.text(`Cliente: ${empresa || "-"}`, 14, y + 14);
+  doc.text(`Equipamento: ${tipoEquipamento}`, 14, y + 21);
+
+  doc.line(14, y + 36, 90, y + 36);
+  doc.line(115, y + 36, 195, y + 36);
+
+  doc.text("Assinatura cliente", 35, y + 42);
+  doc.text("Assinatura empresa", 140, y + 42);
 }
 
 
