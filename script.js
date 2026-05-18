@@ -43,6 +43,8 @@ function abrirFormulario(tipo) {
   }
 }
 
+window.abrirFormulario = abrirFormulario;
+
 function voltarMenu() {
   document.getElementById("formulario").classList.add("oculto");
   document.getElementById("menuInicial").classList.remove("oculto");
