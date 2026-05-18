@@ -116,46 +116,39 @@ async function buscarCNPJ() {
   }
 
 async function buscarCNPJ() {
+  const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
 
-    const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
+  if (!valor) {
+    alert("Digite um CNPJ para buscar.");
+    return;
+  }
 
-    if (!valor) {
-        alert("Digite um CNPJ para buscar.");
-        return;
+  if (valor.length === 11) {
+    alert("CPF informado. A busca automática funciona apenas para CNPJ.");
+    return;
+  }
+
+  if (valor.length !== 14) {
+    alert("Digite um CNPJ válido com 14 números.");
+    return;
+  }
+
+  try {
+    const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${valor}`);
+    const dados = await resposta.json();
+
+    if (dados.message) {
+      alert("CNPJ não encontrado.");
+      return;
     }
 
-    if (valor.length === 11) {
-        alert("CPF informado. A busca automática funciona apenas para CNPJ.");
-        return;
-    }
-
-    if (valor.length !== 14) {
-        alert("Digite um CNPJ válido com 14 números.");
-        return;
-    }
-
-    const cnpj = valor;
-
-    try {
-
-        const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
-        const dados = await resposta.json();
-
-        if (dados.message) {
-            alert("CNPJ não encontrado.");
-            return;
-        }
-
-        document.getElementById("empresa").value = dados.razao_social || "";
-        document.getElementById("endereco").value =
-            `${dados.logradouro || ""}, ${dados.numero || ""}`;
-
-    } catch (erro) {
-
-        console.error(erro);
-        alert("Erro ao buscar CNPJ.");
-
-    }
+    document.getElementById("empresa").value = dados.razao_social || "";
+    document.getElementById("endereco").value =
+      `${dados.logradouro || ""}, ${dados.numero || ""}`;
+  } catch (erro) {
+    console.error(erro);
+    alert("Erro ao buscar CNPJ.");
+  }
 }
 
 function gerarPDF() {
@@ -176,6 +169,10 @@ function gerarPDF() {
   const parcelasCartao = document.getElementById("parcelasCartao")?.value || "";
   const dias = document.getElementById("dias").value;
   const frete = Number(document.getElementById("frete").value || 0);
+  const cepCliente = document.getElementById("cepCliente").value;
+  const enderecoCliente = document.getElementById("enderecoCliente").value;
+  const bairroCliente = document.getElementById("bairroCliente").value;
+  const cidadeCliente = document.getElementById("cidadeCliente").value;
   const observacoes = document.getElementById("observacoes").value;
   const validade = document.getElementById("validade").value;
   const numeroOrcamento = gerarNumeroOrcamento();
@@ -684,6 +681,7 @@ function salvarOrcamento() {
 
   document.querySelectorAll(".produto-item").forEach((item) => {
     const produto = item.querySelector(".produto").value;
+    const marca = item.querySelector(".marca").value;
     const codigo = item.querySelector(".codigo").value;
     const quantidade = Number(item.querySelector(".quantidade").value || 0);
     const preco = Number(item.querySelector(".preco").value || 0);
@@ -695,6 +693,7 @@ function salvarOrcamento() {
 
     produtos.push({
       produto,
+      marca,
       codigo,
       quantidade,
       preco,
