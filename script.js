@@ -59,7 +59,6 @@ function abrirFormulario(tipo) {
 
 window.abrirFormulario = abrirFormulario;
 
-window.abrirFormulario = abrirFormulario;
 
 function voltarMenu() {
   document.getElementById("formulario").classList.add("oculto");
