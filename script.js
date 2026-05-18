@@ -31,13 +31,18 @@ window.onload = function () {
 function abrirFormulario(tipo) {
   tipoOrcamento = tipo;
 
-  document.getElementById("menuInicial").classList.add("oculto");
-  document.getElementById("formulario").classList.remove("oculto");
-
+  const formulario = document.getElementById("formulario");
   const areaManutencao = document.getElementById("areaManutencao");
   const blocoProdutos = document.querySelector(".bloco-produtos");
   const blocoPagamento = document.querySelector(".bloco-pagamento");
   const blocoSedex = document.querySelector(".bloco-sedex");
+
+  document.getElementById("menuInicial").classList.add("oculto");
+  formulario.classList.remove("oculto");
+
+  if (areaManutencao) {
+    formulario.appendChild(areaManutencao);
+  }
 
   if (tipo === "proposta") {
     document.getElementById("tituloFormulario").innerText = "Proposta comercial";
@@ -45,9 +50,10 @@ function abrirFormulario(tipo) {
     if (blocoProdutos) blocoProdutos.style.display = "block";
     if (blocoPagamento) blocoPagamento.style.display = "block";
     if (blocoSedex) blocoSedex.style.display = "block";
+
     if (areaManutencao) {
-    areaManutencao.classList.add("oculto");
-    areaManutencao.style.display = "none";
+      areaManutencao.classList.add("oculto");
+      areaManutencao.style.display = "none";
     }
 
   } else {
@@ -56,12 +62,16 @@ function abrirFormulario(tipo) {
     if (blocoProdutos) blocoProdutos.style.display = "none";
     if (blocoPagamento) blocoPagamento.style.display = "none";
     if (blocoSedex) blocoSedex.style.display = "none";
+
     if (areaManutencao) {
       areaManutencao.classList.remove("oculto");
       areaManutencao.style.display = "block";
-      }
+    } else {
+      alert("Área de manutenção não encontrada no HTML.");
+    }
   }
 }
+
 
 window.abrirFormulario = abrirFormulario;
 
