@@ -105,15 +105,6 @@ function removerProduto() {
   }
 }
 
-async function buscarCNPJ() {
-
-  const campo = document.getElementById("cnpj");
-  const valor = campo.value.replace(/\D/g, "");
-
-  if (!valor) {
-    alert("Digite um CNPJ para buscar.");
-    return;
-  }
 
 async function buscarCNPJ() {
   const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
