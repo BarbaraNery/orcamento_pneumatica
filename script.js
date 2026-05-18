@@ -655,6 +655,11 @@ function salvarOrcamento() {
 
   const totalGeral = subtotal + frete;
 
+  const cepCliente = document.getElementById("cepCliente").value;
+  const enderecoCliente = document.getElementById("enderecoCliente").value;
+  const bairroCliente = document.getElementById("bairroCliente").value;
+  const cidadeCliente = document.getElementById("cidadeCliente").value;
+
   const orcamento = {
     numero: numeroOrcamento,
     data,
@@ -670,6 +675,10 @@ function salvarOrcamento() {
     totalGeral,
     validade,
     observacoes,
+    cepCliente,
+    enderecoCliente,
+    bairroCliente,
+    cidadeCliente,
     produtos
   };
 
@@ -760,6 +769,10 @@ function gerarPDFDoHistorico(numero) {
   document.getElementById("retirada").value = orcamento.retirada || "";
   document.getElementById("pagamento").value = orcamento.pagamento || "";
   document.getElementById("frete").value = orcamento.frete || 0;
+  document.getElementById("cepCliente").value = orcamento.cepCliente || "";
+  document.getElementById("enderecoCliente").value = orcamento.enderecoCliente || "";
+  document.getElementById("bairroCliente").value = orcamento.bairroCliente || "";
+  document.getElementById("cidadeCliente").value = orcamento.cidadeCliente || "";
   document.getElementById("observacoes").value = orcamento.observacoes || "";
   document.getElementById("validade").value = orcamento.validade || "";
 
