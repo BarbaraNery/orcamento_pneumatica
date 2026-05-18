@@ -28,31 +28,65 @@ window.onload = function () {
   mostrarCampoFaturado();
 };
 
+
 function abrirFormulario(tipo) {
+
   tipoOrcamento = tipo;
 
   document.getElementById("menuInicial").classList.add("oculto");
   document.getElementById("formulario").classList.remove("oculto");
 
-  const areaProdutos = document.getElementById("produtos")?.parentElement;
-  const areaManutencao = document.getElementById("areaManutencao");
-  const areaSedex = document.getElementById("cepCliente")?.closest(".grid")?.parentElement;
+  const areaManutencao =
+    document.getElementById("areaManutencao");
+
+  const areaProdutos =
+    document.getElementById("produtos");
+
+  const tituloProdutos =
+    document.getElementById("tituloProdutos");
+
+  const areaSedex =
+    document.getElementById("cepCliente")
+      ?.closest("section");
 
   if (tipo === "proposta") {
-    document.getElementById("tituloFormulario").innerText = "Proposta comercial";
-    document.getElementById("tituloProdutos").innerText = "Produtos";
 
-    if (areaProdutos) areaProdutos.style.display = "block";
-    if (areaSedex) areaSedex.style.display = "block";
-    if (areaManutencao) areaManutencao.classList.add("oculto");
+    document.getElementById("tituloFormulario").innerText =
+      "Proposta comercial";
+
+    tituloProdutos.innerText = "Produtos";
+
+    if (areaProdutos) {
+      areaProdutos.style.display = "block";
+    }
+
+    if (areaSedex) {
+      areaSedex.style.display = "block";
+    }
+
+    if (areaManutencao) {
+      areaManutencao.classList.add("oculto");
+    }
 
   } else {
-    document.getElementById("tituloFormulario").innerText = "Orçamento de manutenção";
-    document.getElementById("tituloProdutos").innerText = "Manutenção pneumática";
 
-    if (areaProdutos) areaProdutos.style.display = "none";
-    if (areaSedex) areaSedex.style.display = "none";
-    if (areaManutencao) areaManutencao.classList.remove("oculto");
+    document.getElementById("tituloFormulario").innerText =
+      "Ordem de serviço";
+
+    tituloProdutos.innerText =
+      "Manutenção pneumática";
+
+    if (areaProdutos) {
+      areaProdutos.style.display = "none";
+    }
+
+    if (areaSedex) {
+      areaSedex.style.display = "none";
+    }
+
+    if (areaManutencao) {
+      areaManutencao.classList.remove("oculto");
+    }
   }
 }
 
