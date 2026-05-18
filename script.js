@@ -45,7 +45,10 @@ function abrirFormulario(tipo) {
     if (blocoProdutos) blocoProdutos.style.display = "block";
     if (blocoPagamento) blocoPagamento.style.display = "block";
     if (blocoSedex) blocoSedex.style.display = "block";
-    if (areaManutencao) areaManutencao.classList.add("oculto");
+    if (areaManutencao) {
+    areaManutencao.classList.add("oculto");
+    areaManutencao.style.display = "none";
+    }
 
   } else {
     document.getElementById("tituloFormulario").innerText = "Ordem de serviço";
