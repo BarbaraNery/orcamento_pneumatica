@@ -101,6 +101,26 @@ function removerProduto() {
 }
 
 async function buscarCNPJ() {
+
+  const campo = document.getElementById("cnpj");
+  const valor = campo.value.replace(/\D/g, "");
+
+  if (!valor) {
+    alert("Digite um CNPJ para buscar.");
+    return;
+  }
+
+  if (valor.length === 11) {
+    alert("CPF informado. A busca automática funciona apenas para CNPJ.");
+    return;
+  }
+
+  if (valor.length !== 14) {
+    alert("Digite um CNPJ válido com 14 números.");
+    return;
+  }
+}
+
   const cnpj = document.getElementById("cnpj").value.replace(/\D/g, "");
 
   if (cnpj.length !== 14) return;
