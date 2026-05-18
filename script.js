@@ -30,66 +30,37 @@ window.onload = function () {
 
 
 function abrirFormulario(tipo) {
-
   tipoOrcamento = tipo;
 
   document.getElementById("menuInicial").classList.add("oculto");
   document.getElementById("formulario").classList.remove("oculto");
 
-  const areaManutencao =
-    document.getElementById("areaManutencao");
-
-  const areaProdutos =
-    document.getElementById("produtos");
-
-  const tituloProdutos =
-    document.getElementById("tituloProdutos");
-
-  const areaSedex =
-  document.querySelector(".bloco-sedex");
+  const areaManutencao = document.getElementById("areaManutencao");
+  const blocoProdutos = document.querySelector(".bloco-produtos");
+  const blocoPagamento = document.querySelector(".bloco-pagamento");
+  const blocoSedex = document.querySelector(".bloco-sedex");
 
   if (tipo === "proposta") {
+    document.getElementById("tituloFormulario").innerText = "Proposta comercial";
 
-    document.getElementById("tituloFormulario").innerText =
-      "Proposta comercial";
-
-    tituloProdutos.innerText = "Produtos";
-
-    if (areaProdutos) {
-      areaProdutos.style.display = "block";
-    }
-
-    if (areaSedex) {
-      areaSedex.style.display = "block";
-    }
-
-    if (areaManutencao) {
-      areaManutencao.classList.add("oculto");
-    }
+    if (blocoProdutos) blocoProdutos.style.display = "block";
+    if (blocoPagamento) blocoPagamento.style.display = "block";
+    if (blocoSedex) blocoSedex.style.display = "block";
+    if (areaManutencao) areaManutencao.classList.add("oculto");
 
   } else {
+    document.getElementById("tituloFormulario").innerText = "Ordem de serviço";
 
-    document.getElementById("tituloFormulario").innerText =
-      "Ordem de serviço";
-
-    tituloProdutos.innerText =
-      "Manutenção pneumática";
-
-    if (areaProdutos) {
-      areaProdutos.style.display = "none";
-    }
-
-    if (areaSedex) {
-      areaSedex.style.display = "none";
-    }
-
-    if (areaManutencao) {
-      areaManutencao.classList.remove("oculto");
-    }
+    if (blocoProdutos) blocoProdutos.style.display = "none";
+    if (blocoPagamento) blocoPagamento.style.display = "none";
+    if (blocoSedex) blocoSedex.style.display = "none";
+    if (areaManutencao) areaManutencao.classList.remove("oculto");
   }
 }
 
+
 window.abrirFormulario = abrirFormulario;
+
 function voltarMenu() {
   document.getElementById("formulario").classList.add("oculto");
   document.getElementById("menuInicial").classList.remove("oculto");
