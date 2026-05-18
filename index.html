@@ -178,11 +178,19 @@
 
       <br />
 
-    <div id="areaManutencao" class="oculto">
+     <label>Observações adicionais</label>
+<textarea id="observacoes"></textarea>
+
+<br />
+
+<!-- COLE AQUI -->
+
+<div id="areaManutencao" class="oculto">
 
   <h2>Dados da manutenção</h2>
 
   <div class="grid">
+
     <div>
       <label>Tipo de equipamento</label>
       <select id="tipoEquipamento">
@@ -193,27 +201,30 @@
 
     <div>
       <label>Marca</label>
-      <input type="text" id="marcaManutencao" placeholder="Marca do equipamento">
+      <input type="text" id="marcaManutencao">
     </div>
 
     <div>
       <label>Modelo / Código</label>
-      <input type="text" id="modeloManutencao" placeholder="Modelo ou código">
+      <input type="text" id="modeloManutencao">
     </div>
 
     <div>
       <label>Valor</label>
       <input type="text" id="valorManutencao" placeholder="A definir">
     </div>
+
   </div>
 
   <label>O que está acontecendo?</label>
-  <textarea id="problemaManutencao" placeholder="Descreva o problema relatado pelo cliente"></textarea>
+  <textarea id="problemaManutencao"></textarea>
 
   <label>Observações técnicas</label>
-  <textarea id="observacoesManutencao" placeholder="Observações da análise técnica"></textarea>
+  <textarea id="observacoesManutencao"></textarea>
 
 </div>
+
+<button onclick="gerarPDF()">Gerar PDF</button>
         
 
       <button onclick="gerarPDF()">Gerar PDF</button>
