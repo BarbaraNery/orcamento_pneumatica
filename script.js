@@ -115,22 +115,36 @@ async function buscarCNPJ() {
     return;
   }
 
-  if (valor.length === 11) {
-    alert("CPF informado. A busca automática funciona apenas para CNPJ.");
-    return;
-  }
+    async function buscarCNPJ() {
 
-  if (valor.length !== 14) {
-    alert("Digite um CNPJ válido com 14 números.");
-    return;
-  }
-}
+    const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
 
-  const cnpj = document.getElementById("cnpj").value.replace(/\D/g, "");
+    if (!valor) {
+        alert("Digite um CNPJ para buscar.");
+        return;
+    }
 
-  if (cnpj.length !== 14) return; }
+    if (valor.length === 11) {
+        alert("CPF informado. A busca automática funciona apenas para CNPJ.");
+        return;
+    }
 
-  try {
+    if (valor.length !== 14) {
+        alert("Digite um CNPJ válido com 14 números.");
+        return;
+    }
+
+    const cnpj = valor;
+
+    try {
+
+        const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
+        const dados = await resposta.json();
+
+        if (dados.message) {
+            alert("CNPJ não encontrado.");
+            return;
+        }
     const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
     const dados = await resposta.json();
 
