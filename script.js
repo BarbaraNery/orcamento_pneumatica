@@ -270,6 +270,7 @@ yCliente += 6;
 
   produtos.forEach((item) => {
     const produto = item.querySelector(".produto").value;
+    const marca = item.querySelector(".marca").value;
     const codigo = item.querySelector(".codigo").value;
     const quantidade = Number(item.querySelector(".quantidade").value || 0);
     const preco = Number(item.querySelector(".preco").value || 0);
@@ -287,6 +288,7 @@ yCliente += 6;
 
     linhas.push([
       produto,
+      marca,
       codigo,
       quantidade,
       formatarMoeda(preco),
@@ -297,7 +299,7 @@ yCliente += 6;
 
   doc.autoTable({
     startY: inicioTabela,
-    head: [["Produto/Serviço", "Código", "Qtd", "Preço unit.", "Total", "Disponibilidade"]],
+    head: [["Produto/Serviço", "Marca", "Código", "Qtd", "Preço unit.", "Total", "Disponibilidade"]],
     body: linhas,
     theme: "grid",
     headStyles: {
