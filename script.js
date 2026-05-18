@@ -128,7 +128,7 @@ async function buscarCNPJ() {
 
   const cnpj = document.getElementById("cnpj").value.replace(/\D/g, "");
 
-  if (cnpj.length !== 14) return;
+  if (cnpj.length !== 14) return; }
 
   try {
     const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
