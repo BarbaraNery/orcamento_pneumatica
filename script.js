@@ -203,6 +203,24 @@ function gerarPDF() {
 
   doc.text(`Telefone: ${telefone || "-"}`, 14, yCliente);
   yCliente += 6;
+  
+  doc.text(`CEP: ${cepCliente || "-"}`, 14, yCliente);
+  yCliente += 6;
+
+const enderecoEntregaQuebrado = doc.splitTextToSize(
+  `Endereço Entrega: ${enderecoCliente || "-"}`,
+  90
+);
+
+doc.text(enderecoEntregaQuebrado, 14, yCliente);
+yCliente += enderecoEntregaQuebrado.length * 6;
+
+doc.text(`Bairro: ${bairroCliente || "-"}`, 14, yCliente);
+yCliente += 6;
+
+doc.text(`Cidade: ${cidadeCliente || "-"}`, 14, yCliente);
+yCliente += 6;
+
 
   doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
   doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
