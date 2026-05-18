@@ -56,7 +56,10 @@ function abrirFormulario(tipo) {
     if (blocoProdutos) blocoProdutos.style.display = "none";
     if (blocoPagamento) blocoPagamento.style.display = "none";
     if (blocoSedex) blocoSedex.style.display = "none";
-    if (areaManutencao) areaManutencao.classList.remove("oculto");
+    if (areaManutencao) {
+      areaManutencao.classList.remove("oculto");
+      areaManutencao.style.display = "block";
+      }
   }
 }
 
