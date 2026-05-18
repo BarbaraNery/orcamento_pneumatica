@@ -115,7 +115,7 @@ async function buscarCNPJ() {
     return;
   }
 
-    async function buscarCNPJ() {
+async function buscarCNPJ() {
 
     const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
 
@@ -145,24 +145,17 @@ async function buscarCNPJ() {
             alert("CNPJ não encontrado.");
             return;
         }
-    const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
-    const dados = await resposta.json();
 
-    if (dados.message) {
-      alert("CNPJ não encontrado.");
-      return;
+        document.getElementById("empresa").value = dados.razao_social || "";
+        document.getElementById("endereco").value =
+            `${dados.logradouro || ""}, ${dados.numero || ""}`;
+
+    } catch (erro) {
+
+        console.error(erro);
+        alert("Erro ao buscar CNPJ.");
+
     }
-
-    document.getElementById("empresa").value = dados.razao_social || "";
-    document.getElementById("telefone").value = dados.ddd_telefone_1 || "";
-
-    document.getElementById("endereco").value =
-      `${dados.logradouro || ""}, ${dados.numero || ""} - ${dados.bairro || ""} - ${dados.municipio || ""}/${dados.uf || ""}`;
-
-  } catch (erro) {
-    alert("Erro ao buscar CNPJ.");
-    console.error(erro);
-  }
 }
 
 function gerarPDF() {
