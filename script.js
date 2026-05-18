@@ -61,6 +61,11 @@ div.innerHTML = `
   </div>
 
   <div>
+    <label>Marca</label>
+    <input type="text" class="marca">
+  </div>
+   
+  <div>
     <label>Código</label>
     <input type="text" class="codigo">
   </div>
