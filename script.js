@@ -46,8 +46,8 @@ function abrirFormulario(tipo) {
     document.getElementById("tituloProdutos");
 
   const areaSedex =
-    document.getElementById("cepCliente")
-      ?.closest("section");
+  document.getElementById("cepCliente")
+    ?.closest(".bloco-sedex");
 
   if (tipo === "proposta") {
 
