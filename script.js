@@ -140,7 +140,8 @@ function removerProduto() {
 
 
 async function buscarCNPJ() {
-  const valor = document.getElementById("cnpj").value.replace(/\D/g, "");
+  const campo = document.getElementById("cnpj");
+  const valor = campo.value.replace(/\D/g, "");
 
   if (!valor) {
     alert("Digite um CNPJ para buscar.");
@@ -158,22 +159,25 @@ async function buscarCNPJ() {
   }
 
   try {
-    const resposta = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${valor}`);
-    const dados = await resposta.json();
+    const resposta = await fetch(`https://open.cnpja.com/office/${valor}`);
 
-    if (dados.message) {
-      alert("CNPJ não encontrado.");
-      return;
+    if (!resposta.ok) {
+      throw new Error("Erro na consulta do CNPJ");
     }
 
-    document.getElementById("empresa").value = dados.razao_social || "";
+    const dados = await resposta.json();
+
+    document.getElementById("empresa").value = dados.company?.name || "";
     document.getElementById("endereco").value =
-      `${dados.logradouro || ""}, ${dados.numero || ""}`;
+      `${dados.address?.street || ""}, ${dados.address?.number || ""} - ${dados.address?.district || ""} - ${dados.address?.city || ""}/${dados.address?.state || ""}`;
+
   } catch (erro) {
     console.error(erro);
     alert("Erro ao buscar CNPJ.");
   }
 }
+
+window.buscarCNPJ = buscarCNPJ;
 
 function gerarPDF() {
 
