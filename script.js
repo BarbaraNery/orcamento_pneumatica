@@ -1004,7 +1004,7 @@ function gerarPDFManutencao() {
   y += 20;
 
   doc.setFont("helvetica", "bold");
-  doc.text(`Responsável: ${vendedor || "-"}`, 14, y);
+ 
 
   y += 12;
 
