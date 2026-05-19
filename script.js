@@ -998,10 +998,10 @@ function gerarPDFManutencao() {
   y += 25;
 
   doc.setFont("helvetica", "bold");
-  doc.text("Observações técnicas:", 14, y); y += 7;
+  doc.text("Observações técnicas:", 14, 150);
+
   doc.setFont("helvetica", "normal");
-  doc.text(doc.splitTextToSize(observacoes || "-", 180), 14, y);
-  y += 20;
+  doc.text(doc.splitTextToSize(observacoes || "-", 180), 14, 158);
 
   doc.setFont("helvetica", "bold");
  
