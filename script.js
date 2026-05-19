@@ -1002,7 +1002,7 @@ function gerarPDFManutencao() {
   doc.setFont("helvetica", "bold");
   doc.text(`Responsável: ${vendedor || "-"}`, 14, y);
 
-  criarCanhotoManutencao(doc, 210, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 205, numeroOrcamento, hoje, empresa, tipoEquipamento);
   criarCanhotoManutencao(doc, 255, numeroOrcamento, hoje, empresa, tipoEquipamento);
 
   doc.save(`manutencao-${empresa || "cliente"}.pdf`);
