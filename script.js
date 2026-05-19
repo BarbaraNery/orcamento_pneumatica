@@ -997,7 +997,7 @@ function gerarPDFManutencao() {
   doc.text("Observações técnicas:", 14, y); y += 7;
   doc.setFont("helvetica", "normal");
   doc.text(doc.splitTextToSize(observacoes || "-", 180), 14, y);
-  y += 35;
+  y += 20;
 
   doc.setFont("helvetica", "bold");
   doc.text(`Responsável: ${vendedor || "-"}`, 14, y);
