@@ -1008,8 +1008,8 @@ function gerarPDFManutencao() {
 
   y += 12;
 
-  criarCanhotoManutencao(doc, 198, numeroOrcamento, hoje, empresa, tipoEquipamento);
-  criarCanhotoManutencao(doc, 242, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 178, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 232, numeroOrcamento, hoje, empresa, tipoEquipamento);
 
   doc.save(`manutencao-${empresa || "cliente"}.pdf`);
 }
