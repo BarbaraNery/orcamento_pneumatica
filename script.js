@@ -1002,31 +1002,33 @@ function gerarPDFManutencao() {
   doc.setFont("helvetica", "bold");
   doc.text(`Responsável: ${vendedor || "-"}`, 14, y);
 
-  criarCanhotoManutencao(doc, 205, numeroOrcamento, hoje, empresa, tipoEquipamento);
-  criarCanhotoManutencao(doc, 255, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 198, numeroOrcamento, hoje, empresa, tipoEquipamento);
+  criarCanhotoManutencao(doc, 242, numeroOrcamento, hoje, empresa, tipoEquipamento);
 
   doc.save(`manutencao-${empresa || "cliente"}.pdf`);
 }
 
 function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento) {
   doc.setDrawColor(0);
-  doc.line(14, y - 8, 195, y - 8);
+  doc.line(14, y - 6, 195, y - 6);
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
+  doc.setFontSize(9);
   doc.text("CANHOTO DE MANUTENÇÃO", 14, y);
 
   doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+
   doc.text(`Nº: ${numero}`, 14, y + 7);
-  doc.text(`Data: ${data}`, 80, y + 7);
+  doc.text(`Data: ${data}`, 105, y + 7);
+
   doc.text(`Cliente: ${empresa || "-"}`, 14, y + 14);
   doc.text(`Equipamento: ${tipoEquipamento}`, 14, y + 21);
 
-  doc.line(14, y + 30, 90, y + 30);
-  doc.line(115, y + 30, 195, y + 30);
+  doc.line(14, y + 31, 80, y + 31);
+  doc.line(115, y + 31, 195, y + 31);
 
-  doc.text("Assinatura cliente", 35, y + 42);
-  doc.text("Assinatura empresa", 140, y + 42);
+  doc.text("Assinatura cliente", 30, y + 36);
+  doc.text("Assinatura empresa", 140, y + 36);
 }
-
 
