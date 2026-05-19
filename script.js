@@ -1014,7 +1014,7 @@ function gerarPDFManutencao() {
   doc.save(`manutencao-${empresa || "cliente"}.pdf`);
 }
 
-function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento) {
+function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento, vendedor) {
   doc.setDrawColor(0);
   doc.line(14, y - 6, 195, y - 6);
 
@@ -1029,12 +1029,13 @@ function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento) 
   doc.text(`Data: ${data}`, 105, y + 7);
 
   doc.text(`Cliente: ${empresa || "-"}`, 14, y + 14);
-  doc.text(`Equipamento: ${tipoEquipamento}`, 14, y + 21);
+  doc.text(`Equipamento: ${tipoEquipamento || "-"}`, 14, y + 21);
+  doc.text(`Responsável: ${vendedor || "-"}`, 14, y + 28);
 
-  doc.line(14, y + 31, 80, y + 31);
-  doc.line(115, y + 31, 195, y + 31);
+  doc.line(14, y + 40, 85, y + 40);
+  doc.line(115, y + 40, 195, y + 40);
 
-  doc.text("Assinatura cliente", 30, y + 36);
-  doc.text("Assinatura empresa", 140, y + 36);
+  doc.text("Assinatura cliente", 32, y + 45);
+  doc.text("Assinatura empresa", 140, y + 45);
 }
 
