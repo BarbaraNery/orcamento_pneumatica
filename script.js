@@ -1022,8 +1022,8 @@ function criarCanhotoManutencao(doc, y, numero, data, empresa, tipoEquipamento) 
   doc.text(`Cliente: ${empresa || "-"}`, 14, y + 14);
   doc.text(`Equipamento: ${tipoEquipamento}`, 14, y + 21);
 
-  doc.line(14, y + 36, 90, y + 36);
-  doc.line(115, y + 36, 195, y + 36);
+  doc.line(14, y + 30, 90, y + 30);
+  doc.line(115, y + 30, 195, y + 30);
 
   doc.text("Assinatura cliente", 35, y + 42);
   doc.text("Assinatura empresa", 140, y + 42);
