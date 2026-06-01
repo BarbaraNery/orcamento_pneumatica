@@ -272,6 +272,9 @@ function gerarPDF() {
 
   doc.text(`Telefone: ${telefone || "-"}`, 14, yCliente);
   yCliente += 6;
+
+  doc.text(`E-mail: ${emailCliente || "-"}`, 14, yCliente);
+  yCliente += 6;
   
   doc.text(`CEP: ${cepCliente || "-"}`, 14, yCliente);
   yCliente += 6;
