@@ -432,8 +432,25 @@ async function gerarWord() {
   const pagamento = document.getElementById("pagamento").value;
   const primeiroContato = document.getElementById("primeiroContato")?.value || "";
   const dias = document.getElementById("dias").value;
+  const parcelasCartao = document.getElementById("parcelasCartao")?.value || "";
+  const emailCliente = document.getElementById("emailCliente")?.value || "";
   const frete = Number(document.getElementById("frete").value || 0);
   const observacoes = document.getElementById("observacoes").value;
+
+
+  let pagamentoExibicao = pagamento;
+
+  if (pagamento === "Faturado" && dias) {
+  pagamentoExibicao = `Faturado (${dias})`;
+  }
+
+if (pagamento === "Cartão de crédito" && parcelasCartao) {
+  pagamentoExibicao = `Cartão de crédito (${parcelasCartao})`;
+}
+
+if (pagamento === "Primeiro contato" && primeiroContato) {
+  pagamentoExibicao = `Primeiro contato - ${primeiroContato}`;
+  }
 
   const produtos = document.querySelectorAll(".produto-item");
 
