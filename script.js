@@ -395,6 +395,7 @@ function mostrarCampoFaturado() {
   const pagamento = document.getElementById("pagamento").value;
   const campoFaturado = document.getElementById("campoFaturado");
   const campoParcelas = document.getElementById("campoParcelas");
+  const campoPrimeiroContato = document.getElementById("campoPrimeiroContato");
 
   if (pagamento === "Faturado") {
     campoFaturado.style.display = "block";
@@ -408,6 +409,13 @@ function mostrarCampoFaturado() {
   } else {
     campoParcelas.classList.add("oculto");
     document.getElementById("parcelasCartao").value = "1x sem juros";
+  }
+
+  if (pagamento === "Primeiro contato") {
+    campoPrimeiroContato.classList.remove("oculto");
+  } else {
+    campoPrimeiroContato.classList.add("oculto");
+    document.getElementById("primeiroContato").value = "";
   }
 }
 
