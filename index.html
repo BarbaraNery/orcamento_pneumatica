@@ -118,6 +118,7 @@
 
         <select id="pagamento" onchange="mostrarCampoFaturado()">
           
+        <option>Primeiro contato</option>  
         <option>Faturado</option>
         <option>Pix</option>
         <option>À vista</option>
@@ -132,6 +133,20 @@
   <label>Condição faturada</label>
   <input type="text" id="dias" placeholder="Ex: 30 DDL ou 30/45/60 DDL" />
 </div>
+
+  <div id="campoPrimeiroContato" class="oculto">
+  <label>Forma do primeiro contato</label>
+
+  <select id="primeiroContato">
+    <option value="">Selecione</option>
+    <option value="Transferência">Transferência</option>
+    <option value="Pix">Pix</option>
+    <option value="Cartão de débito">Cartão de débito</option>
+    <option value="Cartão de crédito 1x">Cartão de crédito 1x</option>
+    <option value="Cartão de crédito 2x">Cartão de crédito 2x</option>
+    <option value="Cartão de crédito 3x">Cartão de crédito 3x</option>
+  </select>
+</div>      
 
 
   <div id="campoParcelas" class="oculto">
