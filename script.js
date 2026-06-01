@@ -206,7 +206,6 @@ function gerarPDF() {
   const vendedor = document.getElementById("vendedor").value;
   const retirada = document.getElementById("retirada").value;
   const pagamento = document.getElementById("pagamento").value;
-  const parcelasCartao = document.getElementById("parcelasCartao")?.value || "";
   const dias = document.getElementById("dias").value;
   const parcelasCartao = document.getElementById("parcelasCartao")?.value || "";
   const frete = Number(document.getElementById("frete").value || 0);
