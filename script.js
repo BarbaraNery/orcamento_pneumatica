@@ -297,15 +297,20 @@ yCliente += 6;
   doc.text(`Vendedor: ${vendedor}`, 125, 80, { maxWidth: 65 });
   doc.text(`Retirada/Envio: ${retirada}`, 125, 88, { maxWidth: 65 });
 
-  let textoPagamento = "";
+let textoPagamento = "";
 
-  if (pagamento === "Faturado") {
-    textoPagamento = `Pagamento: Faturado ${dias}`;
-  } else if (pagamento === "Cartão de crédito") {
-    textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
-  } else {
-    textoPagamento = `Pagamento: ${pagamento}`;
-  }
+if (pagamento === "Faturado") {
+  textoPagamento = `Pagamento: Faturado ${dias}`;
+}
+else if (pagamento === "Cartão de crédito") {
+  textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
+}
+else if (pagamento === "Primeiro contato") {
+  textoPagamento = `Pagamento: Primeiro contato - ${primeiroContato}`;
+}
+else {
+  textoPagamento = `Pagamento: ${pagamento}`;
+}
 
   doc.text(textoPagamento, 125, 96, { maxWidth: 65 });
 
