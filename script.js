@@ -429,6 +429,7 @@ async function gerarWord() {
   const vendedor = document.getElementById("vendedor").value;
   const retirada = document.getElementById("retirada").value;
   const pagamento = document.getElementById("pagamento").value;
+  const primeiroContato = document.getElementById("primeiroContato")?.value || "";
   const dias = document.getElementById("dias").value;
   const frete = Number(document.getElementById("frete").value || 0);
   const observacoes = document.getElementById("observacoes").value;
