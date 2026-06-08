@@ -306,9 +306,12 @@ if (pagamento === "Faturado") {
 else if (pagamento === "Cartão de crédito") {
   textoPagamento = `Pagamento: Cartão de crédito - ${parcelasCartao}`;
 }
+  
 else if (pagamento === "Primeiro contato") {
-  textoPagamento = `Pagamento: Primeiro contato - ${primeiroContato}`;
+  const valorPrimeiroContato = document.getElementById("primeiroContato")?.value || "";
+  textoPagamento = `Pagamento: Primeiro contato - ${valorPrimeiroContato}`;
 }
+  
 else {
   textoPagamento = `Pagamento: ${pagamento}`;
 }
