@@ -214,6 +214,8 @@ function gerarPDF() {
   const bairroCliente = document.getElementById("bairroCliente").value;
   const cidadeCliente = document.getElementById("cidadeCliente").value;
   const observacoes = document.getElementById("observacoes").value;
+  const emailCliente = document.getElementById("emailCliente")?.value || "";
+  const primeiroContato = document.getElementById("primeiroContato")?.value || "";
   const validade = document.getElementById("validade").value;
   const numeroOrcamento = gerarNumeroOrcamento();
 
