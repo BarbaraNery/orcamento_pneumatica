@@ -1,292 +1,453 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Cadiriri - Sistema de Orçamentos</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.js"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<title>Um Jardim Para Você 🌻</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  background: linear-gradient(
+    180deg, #fff9e9, #f8edcc, #e8edce
+  );
+  color: #665334;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 65px 20px 25px;
+}
+
+header small {
+  letter-spacing: 4px;
+  color: #a68a51;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 54px);
+  font-weight: normal;
+  margin: 22px 0;
+  color: #94713c;
+}
+
+.subtitle {
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 430px;
+  margin: auto;
+}
+
+.intro {
+  text-align: center;
+  margin: 25px 15px;
+  font-size: 14px;
+  color: #927b50;
+}
+
+.garden {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 12px;
+  justify-items: center;
+}
+
+.flower {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 65px;
+  transition: transform .4s;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 7px 5px #ad955033);
+}
+
+.flower:hover {
+  transform: scale(1.2) rotate(8deg);
+}
+
+.flower:nth-child(even) {
+  animation-delay: 1s;
+}
+
+.flower span {
+  display: block;
+  font-size: 11px;
+  color: #89754e;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+.message {
+  min-height: 100px;
+  text-align: center;
+  padding: 20px;
+  margin: 10px auto 35px;
+  max-width: 450px;
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.7;
+  color: #94713c;
+  transition: opacity .4s;
+}
+
+.counter {
+  text-align: center;
+  color: #a18b5f;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.secret {
+  display: none;
+  text-align: center;
+  padding: 30px 20px 70px;
+  animation: appear 1s ease;
+}
+
+.secret h2 {
+  font-weight: normal;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.secret p {
+  max-width: 430px;
+  margin: auto;
+  line-height: 1.9;
+  font-size: 17px;
+}
+
+button.open-letter {
+  border: 1px solid #c6a96e;
+  background: #fff9eb;
+  color: #94713c;
+  padding: 15px 28px;
+  border-radius: 30px;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button.open-letter:hover {
+  background: #ead9a9;
+}
+
+.letter {
+  display: none;
+  max-width: 490px;
+  margin: 30px auto 70px;
+  padding: 35px 25px;
+  background: #fffdf5;
+  border: 1px solid #ead9a9;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px #76603b18;
+  text-align: center;
+  line-height: 2;
+  animation: appear 1s ease;
+}
+
+.letter h2 {
+  font-weight: normal;
+  color: #98743d;
+  margin-bottom: 20px;
+}
+
+.letter p {
+  margin-bottom: 15px;
+}
+
+.signature {
+  margin-top: 25px;
+  font-style: italic;
+  color: #a1844d;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #a18b5f;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.petal {
+  position: fixed;
+  top: -20px;
+  pointer-events: none;
+  z-index: 10;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(500deg);
+    opacity: 0;
+  }
+}
+
+@media(max-width: 420px) {
+  .garden {
+    gap: 24px 5px;
+    padding: 15px;
+  }
+
+  .flower {
+    font-size: 54px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
 
-    <section id="menuInicial">
-      <div class="topo">
-     <img src="assets/logo.png" class="logo" />
+<header>
+  <small>Um pequeno presente</small>
 
-     <div>
-    <h1>Sistema de Orçamentos</h1>
-    <p>CADIRIRI HIDRÁULICA E PNEUMÁTICA LTDA</p>
-    </div>
-</div>
+  <h1>Um jardim para você</h1>
 
-      <div class="menu-buttons">
-        <button onclick="abrirFormulario('proposta')">Proposta comercial</button>
-        <button onclick="abrirFormulario('manutencao')">Orçamento de manutenção</button>
-        <button onclick="abrirHistorico()">Consultar orçamentos</button>
-        
-      </div>
-    </section>
+  <p class="subtitle">
+    Existem coisas bonitas que não precisam de pressa.
+    Algumas flores, por exemplo, florescem no seu próprio tempo.
+  </p>
+</header>
 
-    <section id="formulario" class="oculto">
-      <button class="btn-voltar" onclick="voltarMenu()">Voltar</button>
+<p class="intro">
+  Quero te convidar a descobrir algumas pequenas coisas...
+</p>
 
-      <h1 id="tituloFormulario">Proposta comercial</h1>
+<main>
 
-      <h2>Dados do cliente</h2>
+  <section class="garden" id="garden">
 
-      <div class="grid">
-        <div>
-          <label>CNPJ / CPF</label>
-          <input type="text" id="cnpj" placeholder="Digite o CNPJ/ CPF" />
-          <button type="button" onclick="buscarCNPJ()">Buscar CNPJ</button>
-        </div>
+    <button class="flower" onclick="showMessage(0)">
+      🌻 <span>Primeira flor</span>
+    </button>
 
-        <div>
-          <label>Nome da empresa</label>
-          <input type="text" id="empresa" />
-        </div>
+    <button class="flower" onclick="showMessage(1)">
+      🌼 <span>Segunda flor</span>
+    </button>
 
+    <button class="flower" onclick="showMessage(2)">
+      🌷 <span>Terceira flor</span>
+    </button>
 
-         <div>
-          <label>Nome do cliente</label>
-          <input type="text" id="nomeCliente" placeholder="Ex: Ana Carolina" />
-        </div>
+    <button class="flower" onclick="showMessage(3)">
+      🌻 <span>Quarta flor</span>
+    </button>
 
+    <button class="flower" onclick="showMessage(4)">
+      💛 <span>Quinta flor</span>
+    </button>
 
-        <div>
-          <label>Endereço</label>
-          <input type="text" id="endereco" />
-        </div>
+    <button class="flower" onclick="showMessage(5)">
+      🌼 <span>Sexta flor</span>
+    </button>
 
-        <div>
-          <label>Telefone</label>
-          <input type="text" id="telefone" />
-        </div>
+  </section>
 
-        <div>
-        <label>E-mail</label>
-        <input type="email" id="emailCliente" placeholder="cliente@email.com" />
-      </div>
-
-        <div>
-          <label>Vendedor responsável</label>
-          <select id="vendedor">
-            <option value="">Selecione</option>
-            <option value="Joathan">Joathan</option>
-            <option value="Fabiana Silllva">Fabiana Silllva</option>
-            <option value="Henrique">Henrique</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="bloco-produtos">
-
-      <h2 id="tituloProdutos">Produtos</h2>
-
-      <div id="produtos"></div>
-
-      <button onclick="adicionarProduto()">Adicionar produto</button>
-      <button onclick="removerProduto()">Remover último</button>
-
-      </div>  
-
-
-      <div class="bloco-pagamento">
-        
-      <h2>Retirada / Envio e pagamento</h2>
-
-
-      <div class="grid">
-        <div>
-          <label>Tipo de retirada/envio</label>
-          <select id="retirada">
-            <option>Transportadora</option>
-            <option>Retirada em Loja</option>
-            <option>SEDEX</option>
-            <option>Motoboy</option>
-          </select>
-        </div>
-
-      <div>
-        <label>Forma de pagamento</label>
-
-        <select id="pagamento" onchange="mostrarCampoFaturado()">
-          
-        <option>Primeiro contato</option>  
-        <option>Faturado</option>
-        <option>Pix</option>
-        <option>À vista</option>
-        <option>Cartão de crédito</option>
-        <option>Débito</option>
-        <option>Dinheiro</option>
-        <option>Sob-encomenda</option>
-     </select>
-    </div>
-
-<div id="campoFaturado">
-  <label>Condição faturada</label>
-  <input type="text" id="dias" placeholder="Ex: 30 DDL ou 30/45/60 DDL" />
-</div>
-
-  <div id="campoPrimeiroContato" class="oculto">
-  <label>Forma do primeiro contato</label>
-
-  <select id="primeiroContato">
-    <option value="">Selecione</option>
-    <option value="Transferência">Transferência</option>
-    <option value="Pix">Pix</option>
-    <option value="Cartão de débito">Cartão de débito</option>
-    <option value="Cartão de crédito 1x">Cartão de crédito 1x</option>
-    <option value="Cartão de crédito 2x">Cartão de crédito 2x</option>
-    <option value="Cartão de crédito 3x">Cartão de crédito 3x</option>
-  </select>
-</div>      
-
-
-  <div id="campoParcelas" class="oculto">
-  <label>Parcelas no cartão</label>
-
-  <select id="parcelasCartao">
-    <option value="1x sem juros">1x sem juros</option>
-    <option value="2x sem juros">2x sem juros</option>
-    <option value="3x sem juros">3x sem juros</option>
-  </select>
-</div>
-
-
-        <div>
-          <label>Frete (R$)</label>
-          <input type="number" id="frete" value="0" />
-        </div>
-
-        <div>
-        <label>Validade da proposta</label>
-         <input type="text" id="validade" value="20 dias" />
-        </div>
-
-      </div>
-
-     <div class="bloco-sedex">
-       
-      <h2>Dados para SEDEX</h2>
-
-      <div class="grid">
-        <div>
-          <label>CEP do cliente</label>
-          <input type="text" id="cepCliente" placeholder="00000-000" />
-        </div>
-
-            <div>
-            <label>Endereço</label>
-            <input type="text" id="enderecoCliente" placeholder="Rua, número" />
-          </div>
-
-      <div>
-        <label>Bairro</label>
-        <input type="text" id="bairroCliente" placeholder="Bairro" />
-    </div>
-
-    <div>
-      <label>Cidade</label>
-      <input type="text" id="cidadeCliente" placeholder="Cidade / UF" />
-    </div>
-
-        <div>
-          <label>Peso da caixa (kg)</label>
-          <input type="number" id="peso" placeholder="Ex: 2" />
-        </div>
-
-      
-      <label>Observações adicionais</label>
-      <textarea id="observacoes"></textarea>
-
-      <button onclick="gerarPDF()">Gerar PDF</button>
-      <button onclick="gerarWord()">Exportar Word</button>
-      <button onclick="salvarOrcamento()">Salvar orçamento</button>
-      <button onclick="imprimirOrcamento()">Imprimir</button>
-
-        </div>
-
-      <br />
-
-<div id="areaManutencao" class="oculto">
-
-  <h2>Dados da manutenção</h2>
-
-  <div class="grid">
-
-    <div>
-      <label>Tipo de equipamento</label>
-      <select id="tipoEquipamento">
-        <option value="Cilindro">Cilindro</option>
-        <option value="Válvula">Válvula</option>
-      </select>
-    </div>
-
-    <div>
-      <label>Marca</label>
-      <input type="text" id="marcaManutencao">
-    </div>
-
-    <div>
-      <label>Modelo / Código</label>
-      <input type="text" id="modeloManutencao">
-    </div>
-
-    <div>
-      <label>Valor</label>
-      <input type="text" id="valorManutencao" placeholder="A definir">
-    </div>
-
+  <div class="message" id="message">
+    Escolha uma flor e descubra o que ela guarda...
   </div>
 
-  <label>O que está acontecendo?</label>
-  <textarea id="problemaManutencao"></textarea>
-
-  <label>Observações técnicas</label>
-  <textarea id="observacoesManutencao"></textarea>
-  <br><br>
-
-     <div class="botoes-finais">   
-
-     
-
-       </div>
-        
-    </section>
-    
-    <section id="historico" class="oculto">
-
-      <button class="btn-voltar" onclick="voltarMenu()">Voltar</button>
-
-  <h1>Histórico de orçamentos</h1>
-
-  <div class="grid">
-    <div>
-      <label>Pesquisar</label>
-
-      <input
-        type="text"
-        id="pesquisaHistorico"
-        placeholder="Data, cliente, CNPJ ou nº do orçamento"
-        oninput="listarHistorico()"
-      />
-    </div>
+  <div class="counter" id="counter">
+    0 de 6 pequenas descobertas
   </div>
 
-  <div id="listaHistorico"></div>
+  <section class="secret" id="secret">
 
-</section>
+    <h2>Você encontrou o coração do jardim. 💛</h2>
 
-  </div>
-  
-  
-  <script src="script.js"></script>
+    <p>
+      Talvez você não saiba, mas algumas coisas simples
+      conseguem deixar os dias mais bonitos.
+      E conhecer um pouquinho sobre você foi uma dessas coisas.
+    </p>
+
+    <button class="open-letter" onclick="openLetter()">
+      Abrir uma última surpresa ✉
+    </button>
+
+  </section>
+
+  <section class="letter" id="letter">
+
+    <h2>Uma pequena curiosidade...</h2>
+
+    <p>
+      A verdade é que ainda existem muitas coisas sobre
+      você que eu não conheço, e acho que essa é uma
+      das partes mais interessantes.
+    </p>
+
+    <p>
+      Quero descobrir suas coisas favoritas, conhecer
+      os lugares onde você se sente bem, entender suas
+      pequenas manias, saber o que te faz sorrir,
+      o que te encanta, o que te incomoda e até aquelas
+      coisinhas que pouca gente percebe sobre você.
+    </p>
+
+    <p>
+      Quero saber das suas histórias, dos seus sonhos
+      e de tudo aquilo que você tiver vontade de compartilhar.
+    </p>
+
+    <p>
+      Não tenho pressa em descobrir tudo de uma vez.
+      Acho que conhecer alguém é justamente isso:
+      ter a oportunidade de descobrir um detalhe novo
+      a cada conversa.
+    </p>
+
+    <p>
+      Então, por enquanto, fica esse pequeno jardim,
+      algumas flores amarelas e um carinho em forma
+      de surpresa.
+    </p>
+
+    <p>
+      Espero que você goste. 💛
+    </p>
+
+    <p class="signature">
+      Com carinho, de alguém que quer continuar
+      descobrindo você. 🌻
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+  Feito com carinho, especialmente para você.
+</footer>
+
+<script>
+
+const messages = [
+
+  "Assim como o amarelo, existem pessoas que parecem trazer um pouquinho de sol por onde passam.",
+
+  "Algumas flores chamam atenção pela beleza. Outras, pelos detalhes. Acho que os lírios têm um pouco dos dois.",
+
+  "A vida fica mais bonita quando encontramos motivos para apreciar as pequenas coisas.",
+
+  "Nem toda coisa bonita precisa ser grandiosa. Às vezes, um pequeno gesto já diz bastante.",
+
+  "Um bom vinho, uma boa conversa e uma companhia agradável. Algumas combinações parecem perfeitas.",
+
+  "E talvez a melhor parte seja não saber exatamente o que vem depois, mas gostar da descoberta."
+
+];
+
+let discovered = new Set();
+
+function showMessage(index) {
+
+  document.getElementById("message").textContent =
+    messages[index];
+
+  discovered.add(index);
+
+  document.getElementById("counter").textContent =
+    discovered.size + " de 6 pequenas descobertas";
+
+  if (discovered.size === 6) {
+
+    setTimeout(() => {
+
+      document.getElementById("secret").style.display =
+        "block";
+
+      document.getElementById("secret").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      petals();
+
+    }, 700);
+
+  }
+
+}
+
+function openLetter() {
+
+  document.getElementById("letter").style.display =
+    "block";
+
+  document.getElementById("letter").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+  petals();
+
+}
+
+function petals() {
+
+  const emojis = ["🌼", "🌸", "💛", "🌻"];
+
+  for (let i = 0; i < 24; i++) {
+
+    const petal = document.createElement("div");
+
+    petal.className = "petal";
+
+    petal.textContent =
+      emojis[Math.floor(Math.random() * emojis.length)];
+
+    petal.style.left = Math.random() * 100 + "vw";
+
+    petal.style.animationDuration =
+      (3 + Math.random() * 4) + "s";
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+      petal.remove();
+    }, 7500);
+
+  }
+
+}
+
+</script>
+
 </body>
 </html>
